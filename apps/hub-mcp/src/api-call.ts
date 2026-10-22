@@ -22,6 +22,9 @@ export async function apiCall(
 
   // Merge X-API-Key-Owner header when identity is resolved
   const headers = new Headers(init?.headers)
+  if (env.INTERNAL_API_SECRET) {
+    headers.set('X-Internal-Secret', env.INTERNAL_API_SECRET)
+  }
   if (env.API_KEY_OWNER && !headers.has('X-API-Key-Owner')) {
     headers.set('X-API-Key-Owner', env.API_KEY_OWNER)
   }

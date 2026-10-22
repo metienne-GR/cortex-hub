@@ -66,6 +66,9 @@ export async function validateApiKey(
   try {
     const apiUrl = env.DASHBOARD_API_URL || 'http://localhost:4000'
     const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+    if (env.INTERNAL_API_SECRET) {
+      headers['X-Internal-Secret'] = env.INTERNAL_API_SECRET
+    }
     // The https address this agent dialled, so the dashboard can show it as the MCP URL.
     const origin = publicOrigin((name) => request.headers.get(name))
     if (origin) headers['X-Cortex-Public-Origin'] = origin

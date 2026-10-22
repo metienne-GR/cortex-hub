@@ -40,6 +40,7 @@ function logCaptureAttempt(data: {
 
 const QDRANT_URL = process.env.QDRANT_URL ?? 'http://qdrant:6333'
 const COLLECTION = 'knowledge'
+const RECIPE_ANALYSIS_TIMEOUT_MS = 90_000
 const CHUNK_SIZE = 1500
 const CHUNK_OVERLAP = 300
 
@@ -156,7 +157,7 @@ Output valid JSON only:
         temperature: 0.1,
         max_tokens: 2000,
       }),
-      signal: AbortSignal.timeout(30000),
+      signal: AbortSignal.timeout(RECIPE_ANALYSIS_TIMEOUT_MS),
     })
 
     if (!res.ok) {
